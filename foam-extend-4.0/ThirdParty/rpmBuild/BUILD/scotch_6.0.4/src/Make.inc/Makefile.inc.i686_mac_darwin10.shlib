@@ -1,0 +1,22 @@
+EXE	=
+LIB	= .dylib
+OBJ	= .o
+
+MAKE	= make
+AR	= gcc
+ARFLAGS	= -shared  -dynamiclib -undefined dynamic_lookup -o
+
+CAT	= cat
+CCS	= gcc
+CCP     = mpicc
+CCD     = mpicc
+CFLAGS	= -O3 -fPIC -DCOMMON_TIMING_OLD -Drestrict=__restrict -DCOMMON_FILE_COMPRESS_GZ -DCOMMON_PTHREAD -DCOMMON_RANDOM_FIXED_SEED -DSCOTCH_PTHREAD -DSCOTCH_RENAME
+LDFLAGS	= -lz -lm
+LIBLDFLAGS	= -dynamiclib -undefined dynamic_lookup
+CP	= cp
+LEX	= flex
+LN	= ln
+MKDIR	= mkdir
+MV	= mv
+RANLIB	= ranlib
+YACC	= bison -y

@@ -1,0 +1,101 @@
+#!/bin/bash
+#------------------------------------------------------------------------------
+# =========                 |
+# \\      /  F ield         | foam-extend: Open Source CFD
+#  \\    /   O peration     |
+#   \\  /    A nd           | For copyright notice see file Copyright
+#    \\/     M anipulation  |
+#------------------------------------------------------------------------------
+# License
+#     This file is part of foam-extend.
+#
+#     foam-extend is free software: you can redistribute it and/or modify it
+#     under the terms of the GNU General Public License as published by the
+#     Free Software Foundation, either version 3 of the License, or (at your
+#     option) any later version.
+#
+#     foam-extend is distributed in the hope that it will be useful, but
+#     WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#     General Public License for more details.
+#
+#     You should have received a copy of the GNU General Public License
+#     along with foam-extend.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Script
+#     AllMake.stage3
+#
+# Description
+#     Build script for ThirdParty packages: Stage3
+#
+#     The ThirdParty libraries
+#
+# Requirements:
+#     1: Your foam-extend environment must be properly initialized
+#     2: AllMake.stage1 if you are overriding your system compiler
+#     3: AllMake.stage2 if you are overriding your system comm. libraries
+#
+# Author:
+#     Martin Beaudoin, Hydro-Quebec, (2015)
+#
+#------------------------------------------------------------------------------
+# run from third-party directory only
+cd ${0%/*} || exit 1
+
+wmakeCheckPwd "$WM_THIRD_PARTY_DIR" || {
+    echo "Error: Current directory is not \$WM_THIRD_PARTY_DIR"
+    echo "    The environment variables are inconsistent with the installation."
+    echo "    Check the foam-extend entries in your dot-files and source them."
+    exit 1
+}
+. tools/makeThirdPartyFunctionsForRPM
+#------------------------------------------------------------------------------
+
+echo ========================================
+echo Starting ThirdParty AllMake: Scotch
+echo ========================================
+echo
+
+# Scotch
+if [ -z "$SCOTCH_SYSTEM" ]
+then
+    # Scotch 6.0.4
+    #
+    [ ! -z "$WM_THIRD_PARTY_USE_SCOTCH_604" ] && {
+	echo "Building Scotch 6.0.4"
+	#( rpm_make -p scotch-6.0.4 -s scotch-6.0.4.spec -u http://gforge.inria.fr/frs/download.php/file/34618/scotch_6.0.4.tar.gz )
+	( rpm_make -p scotch-6.0.4 -s scotch-6.0.4.spec -u  http://downloads.sourceforge.net/project/foam-extend/ThirdParty/scotch_6.0.4.tar.gz )
+    }
+    # Scotch 6.0.0
+    #
+    [ ! -z "$WM_THIRD_PARTY_USE_SCOTCH_600" ] && {
+	echo "Building Scotch 6.0.0"
+	( rpm_make -p scotch-6.0.0 -s scotch-6.0.0.spec -u http://downloads.sourceforge.net/project/foam-extend/ThirdParty/scotch-6.0.0.tar.gz )
+    }
+else
+    echo "Using system installed Scotch"
+    echo ""
+fi
+
+echo ========================================
+echo Done ThirdParty AllMake: Scotch
+echo ========================================
+echo
+
+# ParMGridGen
+if [ -z "$PARMGRIDGEN_SYSTEM" ]
+then
+    # ParMGridGen 1.0
+    #
+    [ ! -z "$WM_THIRD_PARTY_USE_PARMGRIDGEN_10" ] && {
+       echo "Building ParMGridGen 1.0"
+        #( rpm_make -p ParMGridGen-1.0 -s ParMGridGen-1.0.spec -u http://www.mgnet.org/mgnet/Codes/parmgridgen/ParMGridGen-1.0.tar.gz       )
+           ( rpm_make -p ParMGridGen-1.0 -s ParMGridGen-1.0.spec -u http://downloads.sourceforge.net/project/foam-extend/ThirdParty/ParMGridGen-1.0.tar.gz )
+    }
+else
+    echo "Using system installed ParMGridGen"
+    echo ""
+fi
+
+
+# ----------------------------------------------------------------- end-of-file

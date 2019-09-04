@@ -1,0 +1,3 @@
+atomic-asm.lo: atomic-asm.S /usr/include/stdc-predef.h
+
+/usr/include/stdc-predef.h:

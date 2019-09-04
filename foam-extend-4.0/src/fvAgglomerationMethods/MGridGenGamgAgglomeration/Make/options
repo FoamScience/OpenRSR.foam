@@ -1,0 +1,32 @@
+ParMGridGen = $(WM_THIRD_PARTY_DIR)/packages/ParMGridGen-1.0/platforms/linux64GccDPOpt/include
+
+TYPE_REAL=
+
+#if defined(WM_SP)
+
+TYPE_REAL=-DTYPE_REAL
+
+#endif
+
+#if defined(mingw)
+
+EXE_INC = \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(PARMGRIDGEN_INCLUDE_DIR) \
+    $(TYPE_REAL)
+
+LIB_LIBS = \
+    -lfiniteVolume \
+    -L$(PARMGRIDGEN_LIB_DIR) -lmgrid
+#else
+
+EXE_INC = \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(PARMGRIDGEN_INCLUDE_DIR)/Lib    \
+    -I$(PARMGRIDGEN_INCLUDE_DIR)/IMlib  \
+    $(TYPE_REAL)
+
+LIB_LIBS = \
+    -L$(PARMGRIDGEN_LIB_DIR) -lMGridGen
+
+#endif

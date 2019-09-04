@@ -1,0 +1,1 @@
+../../opal/asm/generated/atomic-amd64-linux.s
